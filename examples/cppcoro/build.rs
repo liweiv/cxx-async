@@ -3,18 +3,22 @@
 use pkg_config::Config;
 
 fn main() {
-    let cppcoro = Config::new().probe("cppcoro").unwrap();
+    // let cppcoro = Config::new().probe("cppcoro").unwrap();
 
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=include/cppcoro_example.h");
     println!("cargo:rerun-if-changed=src/cppcoro_example.cpp");
 
+    // println!("path: {}",cppcoro.include_paths[0].to_str().unwrap());
+
     cxx_build::bridge("src/main.rs")
+    // .flag_if_supported("-std=c++17")
         .file("src/cppcoro_example.cpp")
         .flag_if_supported("-Wall")
         .include("include")
         .include("../common/include")
         .include("../../cxx-async/include")
-        .includes(&cppcoro.include_paths)
+        .include("/Users/liwei/MyWorkspace/cppcoro/include")
+        .cpp_link_stdlib("cppcoro")
         .compile("cppcoro_example");
 }

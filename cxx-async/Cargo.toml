@@ -12,9 +12,9 @@ keywords = ["ffi", "c++", "async"]
 homepage = "https://github.com/pcwalton/cxx-async"
 
 [lib]
+name="cxxasync"
 path = "src/lib.rs"
-crate-type = ["lib"]
-
+crate-type = ["cdylib"]
 [dependencies]
 async-recursion = "1"
 once_cell = "1"
